@@ -18,7 +18,7 @@ class agent:
             self.device = torch.device("cpu")
 
         self.action_space = action_space    
-        self.frame_stack_num = frame_stack_nums
+        self.frame_stack_num = frame_stack_num
         self.training_batch_size = training_batch_size
         self.discount_factor = discount_factor
         self.epsilon = epsilon
