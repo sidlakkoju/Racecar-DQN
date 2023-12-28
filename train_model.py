@@ -63,7 +63,7 @@ for episode in range(episode_count):
         frame_queue.append(state)
 
         print("Episode: {} | Time Step: {} | Action: {} | Reward: {} | Loss: {}".format(episode, time_step, action, reward, loss))
-        agent.save_model("model_weights.pth")
+        agent.save_model("models/model_weights.pth")
 
         time_step += 1
         
