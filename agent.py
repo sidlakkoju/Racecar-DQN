@@ -6,18 +6,19 @@ import numpy as np
 import random 
 class agent:
 
-
     def __init__(self, frame_stack_num, action_space, learning_rate, memory_size, training_batch_size, discount_factor, epsilon, epsilon_decay, epsilon_min):
-        if torch.backends.mps.is_available():
+        if torch.cuda.is_available():
+            print("CUDA")
+            self.device = torch.device("cuda")
+        elif torch.backends.mps.is_available():
             print("MPS")
             self.device = torch.device("mps")
         else:
             print("CPU")
             self.device = torch.device("cpu")
-        print("Agent initialized")
 
         self.action_space = action_space    
-        self.frame_stack_num = frame_stack_num
+        self.frame_stack_num = frame_stack_nums
         self.training_batch_size = training_batch_size
         self.discount_factor = discount_factor
         self.epsilon = epsilon
@@ -26,9 +27,8 @@ class agent:
         
         self.memory = deque(maxlen=memory_size)
         self.model = self.create_model().to(self.device)
-        # self.criterion = nn.CrossEntropyLoss()
         self.optimizer = optim.Adam(self.model.parameters(), lr=learning_rate, eps=1e-7)
-        
+        print("Agent initialized")        
     
 
     def create_model(self) -> torch.nn.Module:
