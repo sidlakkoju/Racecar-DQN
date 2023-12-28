@@ -5,11 +5,12 @@ import gymnasium as gym
 env = gym.make("CarRacing-v2", continuous=False, render_mode="human")
 
 state, _ = env.reset()
-
+total_reward = 0
 
 action = 0
 while True:
     env.render()
+    print(total_reward)
     print(state.shape)
     keys = pygame.key.get_pressed()
     if keys[K_RIGHT]:
@@ -32,6 +33,8 @@ while True:
     # truncated: bool - if car is going backwards
     # info: dict - empty
     state, reward, terminated, truncated, info = env.step(action)
+    total_reward += reward
+    
     
     
 
