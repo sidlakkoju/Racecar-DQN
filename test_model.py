@@ -7,15 +7,17 @@ from util_functions import *
 from parameters import *
 
 env = gym.make("CarRacing-v2", continuous=False, render_mode="human")
-state, _ = env.reset()
-state = rgb_to_gray(state)
+agent = agent(frame_stack_num, action_space, learning_rate, memory_size, training_batch_size, discount_factor, epsilon, epsilon_decay, epsilon_min)
+agent.load_model("model_weights.pth")
 
-agent = agent(frame_stack_num, action_space, learning_rate, memory_size)
 
 frame_queue = deque(maxlen=frame_stack_num)
+
+state, _ = env.reset()
+state = rgb_to_gray(state)
 for _ in range(frame_stack_num):
     frame_queue.append(state)
-
+    
 
 while True:
     env.render()    
@@ -24,6 +26,3 @@ while True:
     state, reward, terminated, truncated, info = env.step(action)
     state = rgb_to_gray(state)
     frame_queue.append(state)
-    
-
-    

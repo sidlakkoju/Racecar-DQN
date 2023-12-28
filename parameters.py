@@ -10,5 +10,3 @@ episode_count = 1000
 epsilon = 1.0
 epsilon_decay = 0.999
 epsilon_min = 0.05
-
-
