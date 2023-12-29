@@ -19,8 +19,7 @@ for _ in range(frame_stack_num):
     frame_queue.append(state)
     
 
-while True:
-    env.render()    
+while True: 
     frame_stack = get_frame_stack(frame_queue) 
     action = agent.get_action(frame_stack)
     state, reward, terminated, truncated, info = env.step(action)
