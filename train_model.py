@@ -9,6 +9,8 @@ from parameters import *
 env = gym.make("CarRacing-v2", continuous=False)
 agent = agent(frame_stack_num, action_space, learning_rate, memory_size, training_batch_size, discount_factor, epsilon, epsilon_decay, epsilon_min)
 
+agent.load_model("models/model_weights_mps.pth")
+
 
 for episode in range(episode_count):
 
@@ -49,23 +51,17 @@ for episode in range(episode_count):
         
         # Episode Terminaton Conditions
         if terminated or truncated or negative_reward_counter > 25:
-            print("Episode: {} | Total Reward: {} | Negative Reward Counter: {}".format(episode, total_reward, negative_reward_counter))
+            print("Episode Terminated")
             break
         
         # Replay Learning
         loss = 0
         if len(agent.memory) > training_batch_size:
             loss = agent.replay()        
-        
 
-        state, reward, terminated, truncated, info = env.step(action)
-        state = rgb_to_gray(state)
-        frame_queue.append(state)
-
-        print("Episode: {} | Time Step: {} | Action: {} | Reward: {} | Loss: {}".format(episode, time_step, action, reward, loss))
-        agent.save_model("models/model_weights.pth")
+        agent.save_model("models/model_weights_extra.pth")
 
         time_step += 1
-        
-
+        total_reward += reward
+    print("Episode: {} | Time Step: {} | Action: {} | Total_Reward: {} | Loss: {} | Epsilon {}".format(episode, time_step, action, total_reward, loss, agent.epsilon))
         
