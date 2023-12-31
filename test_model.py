@@ -8,7 +8,7 @@ from parameters import *
 
 env = gym.make("CarRacing-v2", continuous=False, render_mode="human")
 agent = agent(frame_stack_num, action_space, learning_rate, memory_size, training_batch_size, discount_factor, epsilon, epsilon_decay, epsilon_min)
-agent.load_model("models/model_weights_mps.pth")
+agent.load_model("models/model_weights_new.pth")    
 
 
 frame_queue = deque(maxlen=frame_stack_num)

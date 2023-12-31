@@ -1,4 +1,4 @@
-frame_stack_num = 3
+frame_stack_num = 5
 action_space = [0,1,2,3,4]
 learning_rate = 0.001
 memory_size = 5000
@@ -9,4 +9,4 @@ episode_count = 1000
 
 epsilon = 1.0
 epsilon_decay = 0.999
-epsilon_min = 0.05
+epsilon_min = 0.1
